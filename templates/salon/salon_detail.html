@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ salon.title }}</h1>
+<p>{{ salon.description }}</p>
+<p>Posted by {{ salon.user.username }} on {{ salon.created_at }}</p>
+{% endblock %}

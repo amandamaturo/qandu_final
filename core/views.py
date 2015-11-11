@@ -24,3 +24,9 @@ from django.views.generic import ListView
 class SalonListView(ListView):
   model = Salon
   template_name = "salon/salon_list.html"
+
+from django.views.generic import DetailView
+
+class SalonDetailView(DetailView):
+  model = Salon
+  template_name = 'salon/salon_detail.html'

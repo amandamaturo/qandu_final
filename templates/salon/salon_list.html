@@ -2,7 +2,7 @@
 {% block content %}
 {% for salon in object_list %}
 <div class="panel">
-  <h3>{{ salon.title }}</h3>
+  <h3><a href="{{ salon.get_absolute_url }}">{{ salon.title }}</a></h3>
   <p> Posted by {{ salon.user.username }} on {{ salon.created_at }}</p>
 </div>
 {% endfor %}

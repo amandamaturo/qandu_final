@@ -30,3 +30,10 @@ from django.views.generic import DetailView
 class SalonDetailView(DetailView):
   model = Salon
   template_name = 'salon/salon_detail.html'
+
+from django.views.generic import UpdateView
+
+class SalonUpdateView(UpdateView):
+  model = Salon
+  template_name = 'salon/salon_form.html'
+  fields = ['salon_name', 'description']

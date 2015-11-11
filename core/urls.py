@@ -8,4 +8,5 @@ urlpatterns = patterns('',
   url(r'^salon/create/$', SalonCreateView.as_view(), name='salon_create'),
   url(r'salon/$', SalonListView.as_view(), name='salon_list'),
   url(r'^salon/(?P<pk>\d+)/$', SalonDetailView.as_view(), name='salon_detail'),
+  url(r'^salon/update/(?P<pk>\d+)/$', SalonUpdateView.as_view(), name='salon_update'),
 )

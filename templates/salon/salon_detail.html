@@ -3,4 +3,7 @@
 <h1>{{ salon.title }}</h1>
 <p>{{ salon.description }}</p>
 <p>Posted by {{ salon.user.username }} on {{ salon.created_at }}</p>
+{% if salon.user == user %}
+<p><a href="{% url 'salon_update' pk=salon.id %}">Edit salon</a></p>
+{% endif %}
 {% endblock %}

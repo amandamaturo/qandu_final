@@ -31,6 +31,13 @@ class SalonDetailView(DetailView):
   model = Salon
   template_name = 'salon/salon_detail.html'
 
+  def get_context_data(self, **kwargs):
+    context = super(SalonDetailView, self).get_context_data(**kwargs)
+    salon = Salon.objects.get(id=self.kwargs['pk'])
+    review = Review.objects.filter(salon=salon)
+    context['review'] = review
+    return context
+
 from django.views.generic import UpdateView
 
 class SalonUpdateView(UpdateView):

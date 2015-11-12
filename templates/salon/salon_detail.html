@@ -7,5 +7,14 @@
 <p><a href="{% url 'salon_update' pk=salon.id %}">Edit salon</a></p>
 <p><a href="{% url 'salon_delete' pk=salon.id %}">Delete salon</a></p>
 {% endif %}
+{% if reviews.count > 0 %}
+<h3>{{ reviews.count }} Review{{ reviews.count|pluralize }}:</h3>
+{% endif %}
+{% for review in reviews %}
+<div class="panel">
+  <p>{{ answer.text }}</p>
+  <p> Reviewed by {{ review.user.username }} on {{ review.created_at }}</p>
+</div>
+{% endfor %}
 <p><a href="{% url 'review_create' pk=salon.id %}">Write review</a></p>
 {% endblock %}

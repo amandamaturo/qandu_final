@@ -37,3 +37,10 @@ class SalonUpdateView(UpdateView):
   model = Salon
   template_name = 'salon/salon_form.html'
   fields = ['salon_name', 'description']
+
+from django.views.generic import DeleteView
+
+class SalonDeleteView(DeleteView):
+  model = Salon
+  template_name = 'salon/salon_confirm_delete.html'
+  success_url = reverse_lazy('question_list')

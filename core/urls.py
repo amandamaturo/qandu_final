@@ -9,4 +9,5 @@ urlpatterns = patterns('',
   url(r'salon/$', SalonListView.as_view(), name='salon_list'),
   url(r'^salon/(?P<pk>\d+)/$', SalonDetailView.as_view(), name='salon_detail'),
   url(r'^salon/update/(?P<pk>\d+)/$', SalonUpdateView.as_view(), name='salon_update'),
+  url(r'^salon/delete/(?P<pk>\d+)/$', SalonDeleteView.as_view(), name='salon_delete'),
 )

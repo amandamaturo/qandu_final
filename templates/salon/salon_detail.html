@@ -15,6 +15,7 @@
   <p>{{ review.salon_name }}</p>
   {% if review.user == user %}
   <p><a href="{% url 'review_update' salon_pk=salon.id review_pk=review.id %}">Edit review</a></p>
+  <p><a href="{% url 'review_delete' salon_pk=salon.id review_pk=review.id %}">Delete review</a><p>
   {% endif %}
   <p> Reviewed by {{ review.user.username }} on {{ review.created_at }}</p>
 </div>

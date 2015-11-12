@@ -64,3 +64,12 @@ class ReviewCreateView(CreateView):
     form.instance.user = self.request.user
     form.instance.salon = Salon.objects.get(id=self.kwargs['pk'])
     return super(ReviewCreateView, self).form_valid(form)
+
+class ReviewUpdateView(UpdateView):
+  model = Review
+  pk_url_kwarg = 'review_pk'
+  template_name = 'review/review_form.html'
+  fields = ['text']
+
+  def get_success_url(self):
+    return self.objects.question.get_absolute_url()

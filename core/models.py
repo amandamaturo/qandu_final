@@ -14,3 +14,12 @@ class Salon(models.Model):
 
   def get_absolute_url(self):
     return reverse("salon_detail", args=[self.id])
+
+class Review(models.Model):
+  salon = models.ForeignKey(Salon)
+  user = models.ForeignKey(User)
+  created_at = models.DateTimeField(auto_now_add=True)
+  text = models.TextField()
+
+  def __unicode__(self):
+    return self.text

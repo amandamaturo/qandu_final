@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ salon.salon_name }}</h1>
 <p>{{ salon.description }}</p>
-<p>Posted by {{ salon.user.username }} on {{ salon.created_at }}</p>
+<p> Posted by <a href="{% url 'user_detail' slug=salon.user.username %}">{{ salon.user.username }}</a> on {{ salon.created_at }}</p>
 {% if salon.user == user %}
 <p><a href="{% url 'salon_update' pk=salon.id %}">Edit salon</a></p>
 <p><a href="{% url 'salon_delete' pk=salon.id %}">Delete salon</a></p>

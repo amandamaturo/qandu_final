@@ -111,3 +111,9 @@ class ReviewDeleteView(DeleteView):
     if object.user != self.request.user:
       raise PermissionDenied
     return object
+
+class UserDetailView(DetailView):
+  model = User
+  slug_field = 'username'
+  template_name = 'user/user_detail.html'
+  context_object_name = 'user_in_view'

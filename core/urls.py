@@ -14,4 +14,5 @@ urlpatterns = patterns('',
   url(r'^salon/(?P<pk>\d+)/review/create/$', login_required(ReviewCreateView.as_view()), name='review_create'),
   url(r'^salon/(?P<salon_pk>\d+)/review/update/(?P<review_pk>\d+)/$', login_required(ReviewUpdateView.as_view()), name='review_update'),
   url(r'^salon/(?P<salon_pk>\d+)/review/delete/(?P<review_pk>\d+)/$', login_required(ReviewDeleteView.as_view()), name='review_delete'),
+  url(r'^user/(?P<slug>\w+)/$', login_required(UserDetailView.as_view()), name='user_detail'),
 )

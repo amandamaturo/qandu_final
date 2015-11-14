@@ -46,12 +46,24 @@ class SalonUpdateView(UpdateView):
   template_name = 'salon/salon_form.html'
   fields = ['salon_name', 'description']
 
+  def get_objects(self, *args, **kwargs):
+    object = super(SalonUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
+
 from django.views.generic import DeleteView
 
 class SalonDeleteView(DeleteView):
   model = Salon
   template_name = 'salon/salon_confirm_delete.html'
   success_url = reverse_lazy('question_list')
+
+  def get_object(self, *args, **kwargs):
+    object = super(SalonDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
 
 class ReviewCreateView(CreateView):
   model = Review
@@ -74,6 +86,12 @@ class ReviewUpdateView(UpdateView):
 
   def get_success_url(self):
     return self.objects.question.get_absolute_url()
+
+  def get_object(self, *args, **kwargs):
+    object = super(ReviewUpdateView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied()
+    return object
 
 class ReviewDeleteView(DeleteView):
   model = Review

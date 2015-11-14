@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 
 from django.views.generic import TemplateView
@@ -34,8 +35,8 @@ class SalonDetailView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(SalonDetailView, self).get_context_data(**kwargs)
     salon = Salon.objects.get(id=self.kwargs['pk'])
-    review = Review.objects.filter(salon=salon)
-    context['review'] = review
+    reviews = Review.objects.filter(salon=salon)
+    context['reviews'] = reviews
     return context
 
 from django.views.generic import UpdateView

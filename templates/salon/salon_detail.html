@@ -12,7 +12,7 @@
 {% endif %}
 {% for review in reviews %}
 <div class="panel">
-  <p>{{ review.salon_name }}</p>
+  <p>{{ review.text }}</p>
   {% if review.user == user %}
   <p><a href="{% url 'review_update' salon_pk=salon.id review_pk=review.id %}">Edit review</a></p>
   <p><a href="{% url 'review_delete' salon_pk=salon.id review_pk=review.id %}">Delete review</a><p>

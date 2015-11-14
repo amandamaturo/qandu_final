@@ -37,6 +37,8 @@ class SalonDetailView(DetailView):
     salon = Salon.objects.get(id=self.kwargs['pk'])
     reviews = Review.objects.filter(salon=salon)
     context['reviews'] = reviews
+    user_reviews = Review.objects.filter(salon=salon, user=self.request.user)
+    context['user_reviews'] = user_reviews
     return context
 
 from django.views.generic import UpdateView
@@ -74,6 +76,9 @@ class ReviewCreateView(CreateView):
     return self.object.salon.get_absolute_url()
 
   def form_valid(self, form):
+    salon = Salon.objects.get(id=self.kwargs['pk'])
+    if Review.objects.filter(salon=salon, user=self.request.user).exists():
+      raise PermissionDenied()
     form.instance.user = self.request.user
     form.instance.salon = Salon.objects.get(id=self.kwargs['pk'])
     return super(ReviewCreateView, self).form_valid(form)
@@ -100,3 +105,9 @@ class ReviewDeleteView(DeleteView):
 
   def get_success_url(self):
     return self.object.salon.get_absolute_url()
+
+  def get_object(self, *args, **kwargs):
+    object = super(ReviewDeleteView, self).get_object(*args, **kwargs)
+    if object.user != self.request.user:
+      raise PermissionDenied
+    return object

@@ -25,6 +25,7 @@ from django.views.generic import ListView
 class SalonListView(ListView):
   model = Salon
   template_name = "salon/salon_list.html"
+  paginate_by = 5
 
 from django.views.generic import DetailView
 

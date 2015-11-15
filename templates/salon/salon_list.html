@@ -5,5 +5,7 @@
   <h3><a href="{{ salon.get_absolute_url }}">{{ salon.salon_name }}</a></h3>
   <p> Posted by <a href="{% url 'user_detail' slug=salon.user.username %}">{{ salon.user.username }}</a> on {{ salon.created_at }}</p>
 </div>
+{% empty %}
+<p>No results found.</p>
 {% endfor %}
 {% endblock %}

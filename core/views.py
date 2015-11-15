@@ -71,7 +71,7 @@ class SalonDeleteView(DeleteView):
 class ReviewCreateView(CreateView):
   model = Review
   template_name = "review/review_form.html"
-  fields = ['text']
+  fields = ['text', 'visibility']
 
   def get_success_url(self):
     return self.object.salon.get_absolute_url()
@@ -122,9 +122,9 @@ class UserDetailView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(UserDetailView, self).get_context_data(**kwargs)
     user_in_view = User.objects.get(username=self.kwargs['slug'])
-    salons = Salon.objects.filter(user=user_in_view)
+    salons = Salon.objects.filter(user=user_in_view).exclude(visibility=1)
     context['salons'] = salons
-    reviews = Review.objects.filter(user=user_in_view)
+    reviews = Review.objects.filter(user=user_in_view).exclude(visibility=1)
     context['reviews'] = reviews
     return context
 

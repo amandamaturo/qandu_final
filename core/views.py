@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 
@@ -41,6 +42,8 @@ class SalonDetailView(DetailView):
     user_reviews = Review.objects.filter(salon=salon, user=self.request.user)
     context['user_reviews'] = user_reviews
     return context
+    rating = Review.objects.filter(salon=salon).aggregate(Avg('rating'))
+    context['rating'] = rating
 
 from django.views.generic import UpdateView
 

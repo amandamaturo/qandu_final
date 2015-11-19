@@ -14,7 +14,7 @@ from .models import*
 class SalonCreateView(CreateView):
   model = Salon
   template_name = "salon/salon_form.html"
-  fields = ['salon_name', 'description']
+  fields = ['salon_name', 'zipcode', 'description']
   success_url = reverse_lazy('salon_list')
 
   def form_valid(self, form):
@@ -41,16 +41,16 @@ class SalonDetailView(DetailView):
     context['reviews'] = reviews
     user_reviews = Review.objects.filter(salon=salon, user=self.request.user)
     context['user_reviews'] = user_reviews
-    return context
     rating = Review.objects.filter(salon=salon).aggregate(Avg('rating'))
     context['rating'] = rating
+    return context
 
 from django.views.generic import UpdateView
 
 class SalonUpdateView(UpdateView):
   model = Salon
   template_name = 'salon/salon_form.html'
-  fields = ['salon_name', 'description']
+  fields = ['salon_name', 'zipcode', 'description']
 
   def get_objects(self, *args, **kwargs):
     object = super(SalonUpdateView, self).get_object(*args, **kwargs)
@@ -63,7 +63,7 @@ from django.views.generic import DeleteView
 class SalonDeleteView(DeleteView):
   model = Salon
   template_name = 'salon/salon_confirm_delete.html'
-  success_url = reverse_lazy('question_list')
+  success_url = reverse_lazy('salon_list')
 
   def get_object(self, *args, **kwargs):
     object = super(SalonDeleteView, self).get_object(*args, **kwargs)
@@ -74,7 +74,7 @@ class SalonDeleteView(DeleteView):
 class ReviewCreateView(CreateView):
   model = Review
   template_name = "review/review_form.html"
-  fields = ['text', 'visibility']
+  fields = ['text', 'visibility', 'rating']
 
   def get_success_url(self):
     return self.object.salon.get_absolute_url()
@@ -91,10 +91,10 @@ class ReviewUpdateView(UpdateView):
   model = Review
   pk_url_kwarg = 'review_pk'
   template_name = 'review/review_form.html'
-  fields = ['text']
+  fields = ['text','visibility','rating']
 
   def get_success_url(self):
-    return self.objects.question.get_absolute_url()
+    return self.object.salon.get_absolute_url()
 
   def get_object(self, *args, **kwargs):
     object = super(ReviewUpdateView, self).get_object(*args, **kwargs)
@@ -125,7 +125,7 @@ class UserDetailView(DetailView):
   def get_context_data(self, **kwargs):
     context = super(UserDetailView, self).get_context_data(**kwargs)
     user_in_view = User.objects.get(username=self.kwargs['slug'])
-    salons = Salon.objects.filter(user=user_in_view).exclude(visibility=1)
+    salons = Salon.objects.filter(user=user_in_view)
     context['salons'] = salons
     reviews = Review.objects.filter(user=user_in_view).exclude(visibility=1)
     context['reviews'] = reviews

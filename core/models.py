@@ -1,3 +1,13 @@
+import os
+import uuid
+
+def upload_to_location(instance, filename):
+  blocks = filename.split('.')
+  ext = blocks[-1]
+  filename = "%s.%s" % (uuid.uuid4(), ext)
+  instance.title = blocks[0]
+  return os.path.join('uploads/', filename)
+
 from django.core.urlresolvers import reverse
 RATING_CHOICES = (
 (0, 'None'),
@@ -21,6 +31,7 @@ class Salon(models.Model):
   description = models.TextField(null=True, blank=True)
   created_at = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(User)
+  image_file = models.ImageField(upload_to=upload_to_location, null=True, blank=True)
 
 
   def __unicode__(self):

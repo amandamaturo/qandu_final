@@ -14,7 +14,7 @@ from .models import*
 class SalonCreateView(CreateView):
   model = Salon
   template_name = "salon/salon_form.html"
-  fields = ['salon_name', 'zipcode', 'description']
+  fields = ['salon_name', 'zipcode', 'description', 'image_file']
   success_url = reverse_lazy('salon_list')
 
   def form_valid(self, form):
@@ -50,7 +50,7 @@ from django.views.generic import UpdateView
 class SalonUpdateView(UpdateView):
   model = Salon
   template_name = 'salon/salon_form.html'
-  fields = ['salon_name', 'zipcode', 'description']
+  fields = ['salon_name', 'zipcode', 'description', 'image_file']
 
   def get_objects(self, *args, **kwargs):
     object = super(SalonUpdateView, self).get_object(*args, **kwargs)
